@@ -1,0 +1,12 @@
+{
+    "name": "ueda/biff",
+    "description": "postoffice mail notifier",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Takeyuki Ueda.",
+            "email": "gde00107@nifty.com"
+        }
+    ],
+    "require": {}
+}
