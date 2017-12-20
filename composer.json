@@ -8,5 +8,7 @@
             "email": "gde00107@nifty.com"
         }
     ],
-    "require": {}
+    "require": {
+    	"sendgrid/sendgrid": "~6.0"
+    }
 }
