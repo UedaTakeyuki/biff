@@ -22,7 +22,8 @@
         }
         // 保存する
         $pathData = pathinfo($_FILES['upfile']['name']);
-        $name = date("Y.m.d.His").image_type_to_extension($type);
+        $now  = date("Y.m.d.His");
+        $name = $now.image_type_to_extension($type);
 #        $path = sprintf('./uploads/%s%s', $pathData["filename"], image_type_to_extension($type));
         $path = sprintf('./uploads/%s', $name);
         echo $path;
@@ -61,6 +62,8 @@
         }, true);
       }, true);
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   </head>
    
   <body>
@@ -71,12 +74,33 @@
 <?php
   if (isset($name)){
 ?>
-    <form method="post" action="send.php">
-      <input type="submit" value="山崎さんに通知" />
-    </form>
-    <form method="post" action="send.php">
-      <input type="submit" value="全員に通知" />
-    </form>
+    <div id="view-notify-menu" style="float: left;">
+      <button v-on:click="sendnotification('yamazaki','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
+      <button v-on:click="sendnotification('all','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
+    </div>
+    <script>
+    var app = new Vue(
+      {
+        el: "#view-notify-menu",
+        data: {
+        },
+        methods: {
+          sendnotification: function(to,now,filename){
+            $.ajax({
+              type: "POST",
+              url: "send.php",
+              data: {
+                to: to,
+                now: now,
+                filename: filename,
+              },
+              dataType: "json",
+            })
+          }
+        }
+      }
+    )
+    </script>
     <form method="get" action="">
       <input type="submit" value="終了" />
     </form>
