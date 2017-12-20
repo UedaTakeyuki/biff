@@ -76,7 +76,7 @@
 ?>
     <div id="view-notify-menu" style="float: left;">
       <button v-on:click="sendnotification('yamazaki','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
-      <button v-on:click="sendnotification('all','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
+      <button v-on:click="sendnotification('all','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">全員に通知</button>
     </div>
     <script>
     var app = new Vue(
