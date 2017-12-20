@@ -41,72 +41,104 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>HTML Media Captureサンプル</title>
-    <script>
-      window.addEventListener("load", function(){
-         
-        if (!window.File){
-          result.innerHTML = "File API 使用不可";
-          return;
-        }
-         
-        document.getElementById("imageFile").addEventListener("change", function(){
-          var reader = new FileReader();
-           
-          reader.onload = function(event){
-            document.getElementById("image").src = reader.result;
-          }
-          var file = document.getElementById("imageFile").files[0];
-          reader.readAsDataURL(file);
-        }, true);
-      }, true);
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
   </head>
    
   <body>
-    <form enctype="multipart/form-data" method="post" action="">
-      <input type="file" name="upfile" accept="image/*;capture=camera" id="imageFile"/>
-      <input type="submit" value="送信" />
-    </form>
+    <div data-role="page">
+      <div data-role="header" data-position="fixed" data-disable-page-zoom="false">
+        <h1 style="font-family: 'Parisienne', cursive; text-shadow: 4px 4px 4px #aaa;">Biff</h1>
+        <a href="" data-rel="back">戻る</a>
+      </div> <!-- header -->
+
+      <div data-role="content">
 <?php
   if (isset($name)){
 ?>
-    <div id="view-notify-menu" style="float: left;">
-      <button v-on:click="sendnotification('yamazaki','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
-      <button v-on:click="sendnotification('all','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">全員に通知</button>
-    </div>
-    <script>
-    var app = new Vue(
-      {
-        el: "#view-notify-menu",
-        data: {
-        },
-        methods: {
-          sendnotification: function(to,now,filename){
-            $.ajax({
-              type: "POST",
-              url: "send.php",
-              data: {
-                to: to,
-                now: now,
-                filename: filename,
-              },
-              dataType: "json",
-            })
+        <div id="view-notify-menu">
+          <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('yamazaki','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">山崎さんに通知</button>
+          <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('ueda','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">上田さんに通知</button>
+          <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('yamazaki','<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">全員に通知</button>
+          <a data-role="button" data-ajax="false" href="./index.php">書類の撮影に戻る</a>
+        </div>
+        <script>
+        var app = new Vue(
+          {
+            el: "#view-notify-menu",
+            data: {
+            },
+            methods: {
+              sendnotification: function(to,now,filename){
+                $.ajax({
+                  type: "POST",
+                  url: "send.php",
+                  data: {
+                    to: to,
+                    now: now,
+                    filename: filename,
+                  },
+                  dataType: "json",
+                })
+              }
+            }
           }
-        }
-      }
-    )
-    </script>
-    <form method="get" action="">
-      <input type="submit" value="終了" />
-    </form>
+        )
+        </script>
+<?php
+  } else {
+?>
+        <form enctype="multipart/form-data" method="post" action="" data-ajax="false">
+          <label for="imageFile">
+            ＋カメラを起動
+            <input type="file" name="upfile" accept="image/*;capture=camera" id="imageFile" style="display:none;"/>
+          </label>
+          <img id="image">
+          <input type="submit" value="送信" />
+        </form>
+        <!-- refer https://qiita.com/yasumodev/items/c9f8e8f588ded6b179c9 -->
+        <style>
+          label {
+            color: black;  
+            background-color: b;
+            padding: 6px;
+            box-shadow:0px 0px 3px 1px;
+            border-radius: 12px;
+            }
+        </style>
+        <script>
+          window.addEventListener("load", function(){
+             
+            if (!window.File){
+              result.innerHTML = "File API 使用不可";
+              return;
+            }
+             
+            document.getElementById("imageFile").addEventListener("change", function(){
+              var reader = new FileReader();
+               
+              reader.onload = function(event){
+                document.getElementById("image").src = reader.result;
+              }
+              var file = document.getElementById("imageFile").files[0];
+              reader.readAsDataURL(file);
+            }, true);
+          }, true);
+        </script>
+
 <?php
   }
 ?>
+      </div><!-- <div data-role="content"> -->
+
+      <div data-role="footer" data-position="fixed" data-disable-page-zoom="false">
+        <h4>© Atelier UEDA <img src="favicon.ico"></h4>
+      </div>
+
+    </div><!-- <div data-role="page"> -->
   </body>
-  <img id="image">
 </html>

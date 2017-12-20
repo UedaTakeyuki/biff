@@ -3,11 +3,12 @@
 require 'vendor/autoload.php';
 require 'sc.php';
 
-$name = "";
-$address = "ueda@uedasoft.com";
+$name = "上田さん";
+$address = ADDRESS_UEDA;
 switch ($_POST['to']){
 	case "yamazaki":
 	  $name = "山崎様";
+	  $address = ADDRESS_YAMAZAKI;
 	  break;
 }
 $string = $name."\n";
