@@ -4,8 +4,8 @@ require 'vendor/autoload.php';
 require 'sc.php';
 
 
-$from = new SendGrid\Email("郵便配達通知", "biff@uedasoft.com");
-$subject = "Sending with SendGrid is Fun";
+$from = new SendGrid\Email("配達通知", "biff@uedasoft.com");
+$subject = "書類がとどいています";
 $to = new SendGrid\Email("UEDA", "ueda@uedasoft.com");
 $content = new SendGrid\Content("text/plain", "メールだびょん");
 $mail = new SendGrid\Mail($from, $subject, $to, $content);
