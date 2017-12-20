@@ -1,6 +1,6 @@
 <?php
   if($_SERVER["REQUEST_METHOD"] == "POST"){
-    var_dump($_FILES);
+//    var_dump($_FILES);
     if (isset($_FILES['upfile']['error']) && is_int($_FILES['upfile']['error'])) {
       try {
         // $_FILES['upfile']['error'] の値を確認
@@ -26,7 +26,7 @@
         $name = $now.image_type_to_extension($type);
 #        $path = sprintf('./uploads/%s%s', $pathData["filename"], image_type_to_extension($type));
         $path = sprintf('./uploads/%s', $name);
-        echo $path;
+//        echo $path;
         if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
           throw new RuntimeException('ファイル保存時にエラーが発生しました');
         }
