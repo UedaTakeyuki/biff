@@ -2,6 +2,8 @@
 // If you are using Composer (recommended)
 require 'vendor/autoload.php';
 require 'sc.php';
+$addresses = $addresses_test;
+
 #require_once "sc2.php";
 
 $name = "上田さん";

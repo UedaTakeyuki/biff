@@ -1,6 +1,8 @@
 <?php
 #  require_once "sc2.php";
   require_once "sc.php";
+  $addresses = $addresses_test;
+  
   if($_SERVER["REQUEST_METHOD"] == "POST"){
 //    var_dump($_FILES);
     if (isset($_FILES['upfile']['error']) && is_int($_FILES['upfile']['error'])) {
