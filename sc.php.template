@@ -1,0 +1,24 @@
+<?php
+# template of sc.php
+/**
+ * SE Constants.
+ * 
+ */
+require_once 'address.php';
+
+define('SENDGRID_API_KEY', 'YOUR_SEND_GRID_API_KEY');
+													 ADDRESS_KOIKE
+/**
+ * addresses for product
+ */
+$addresses_product = array();
+$addresses_product['YOUR_KEY'] = new address('DISPLAY_NAME', 'ADDRESS');
+...
+
+/**
+ * addresses for test
+ */
+$addresses_test = array();
+$addresses_test['YOUR_KEY'] = new address('DISPLAY_NAME', 'ADDRESS');
+...
+
