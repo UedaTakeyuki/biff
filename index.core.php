@@ -1,7 +1,7 @@
 <?php
 #  require_once "sc2.php";
-  require_once "sc.php";
-  $addresses = $addresses_test;
+#  require_once "sc.php";
+#  $addresses = $addresses_test;
   
   if($_SERVER["REQUEST_METHOD"] == "POST"){
 //    var_dump($_FILES);
@@ -81,7 +81,8 @@
               sendnotification: function(to,now,filename){
                 $.ajax({
                   type: "POST",
-                  url: "send2.php",
+//                  url: "send2.php",
+                  url: "<?= $sendscript ?>",
                   data: {
                     to: to,
                     now: now,
