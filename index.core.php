@@ -45,6 +45,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script>
+    //--------------------------
+    // globals
+    //--------------------------
+    var gIni = {
+      sendscript_url: "<?= $sendscript ?>",
+    };
+    </script>
   </head>
    
   <body>
@@ -63,29 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('zenin', '<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">全員に通知</button>
           <a data-role="button" data-ajax="false" href="./index.php">書類の撮影に戻る</a>
         </div>
-        <script>
-        var app = new Vue(
-          {
-            el: "#view-notify-menu",
-            data: {
-            },
-            methods: {
-              sendnotification: function(to,now,filename){
-                $.ajax({
-                  type: "POST",
-                  url: "<?= $sendscript ?>",
-                  data: {
-                    to: to,
-                    now: now,
-                    filename: filename,
-                  },
-                  dataType: "json",
-                })
-              }
-            }
-          }
-        )
-        </script>
+        <script src="view_notify_menu.js"></script>
 <?php else: ?>
         <form enctype="multipart/form-data" method="post" action="" data-ajax="false">
           <label for="imageFile">
