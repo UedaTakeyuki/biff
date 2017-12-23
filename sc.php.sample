@@ -6,7 +6,7 @@
 require_once 'address.php';
 
 define('SENDGRID_API_KEY', 'YOUR_SEND_GRID_API_KEY');
-													 ADDRESS_KOIKE
+
 /**
  * addresses for product
  */
