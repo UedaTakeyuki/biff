@@ -1,13 +1,5 @@
 <?php
-// If you are using Composer (recommended)
-require 'vendor/autoload.php';
-require 'sc.php';
-$addresses = $addresses_test;
 
-#require_once "sc2.php";
-
-$name = "上田さん";
-$address = ADDRESS_UEDA;
 if ($_POST['to'] == "zenin"){
 	foreach ($addresses as $key => $value){
 		send_notification($value->name, $value->address);
