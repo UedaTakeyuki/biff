@@ -95,16 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <img id="image">
           <input type="submit" value="送信" />
         </form>
-        <!-- refer https://qiita.com/yasumodev/items/c9f8e8f588ded6b179c9 -->
-        <style>
-          label {
-            color: black;  
-            background-color: b;
-            padding: 6px;
-            box-shadow:0px 0px 3px 1px;
-            border-radius: 12px;
-            }
-        </style>
+        <link rel="stylesheet" href="camera_button.css" type="text/css">
         <script>
           window.addEventListener("load", function(){
              
