@@ -1,45 +1,39 @@
 <?php
-#  require_once "sc2.php";
-#  require_once "sc.php";
-#  $addresses = $addresses_test;
   
-  if($_SERVER["REQUEST_METHOD"] == "POST"){
-//    var_dump($_FILES);
-    if (isset($_FILES['upfile']['error']) && is_int($_FILES['upfile']['error'])) {
-      try {
-        // $_FILES['upfile']['error'] の値を確認
-        switch ($_FILES['upfile']['error']) {
-          case UPLOAD_ERR_OK: // OK
-              break;
-          case UPLOAD_ERR_NO_FILE:
-              throw new RuntimeException('No FILE.');
-          case UPLOAD_ERR_INI_SIZE:  // php.ini定義の最大サイズ超過
-          case UPLOAD_ERR_FORM_SIZE: // フォーム定義の最大サイズ超過
-              throw new RuntimeException('Too Big.');
-          default:
-              throw new RuntimeException('Something wrong...');
-        }
-        // $_FILES['upfile']['mime']の値はブラウザ側で偽装可能なので、MIMEタイプを自前でチェックする
-        $type = @exif_imagetype($_FILES['upfile']['tmp_name']);
-        if (!in_array($type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG), true)) {
-          throw new RuntimeException('画像形式が未対応です');
-        }
-        // 保存する
-        $pathData = pathinfo($_FILES['upfile']['name']);
-        $now  = date("Y.m.d.His");
-        $name = $now.image_type_to_extension($type);
-#        $path = sprintf('./uploads/%s%s', $pathData["filename"], image_type_to_extension($type));
-        $path = sprintf('./uploads/%s', $name);
-//        echo $path;
-        if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
-          throw new RuntimeException('ファイル保存時にエラーが発生しました');
-        }
-        chmod($path, 0644);
-      } catch (RuntimeException $e) {
-        $msg = array('red', $e->getMessage());
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if (isset($_FILES['upfile']['error']) && is_int($_FILES['upfile']['error'])) {
+    try {
+      // $_FILES['upfile']['error'] の値を確認
+      switch ($_FILES['upfile']['error']) {
+        case UPLOAD_ERR_OK: // OK
+          break;
+        case UPLOAD_ERR_NO_FILE:
+          throw new RuntimeException('No FILE.');
+        case UPLOAD_ERR_INI_SIZE:  // php.ini定義の最大サイズ超過
+        case UPLOAD_ERR_FORM_SIZE: // フォーム定義の最大サイズ超過
+          throw new RuntimeException('Too Big.');
+        default:
+          throw new RuntimeException('Something wrong...');
       }
-    } 
-  }
+      // $_FILES['upfile']['mime']の値はブラウザ側で偽装可能なので、MIMEタイプを自前でチェックする
+      $type = @exif_imagetype($_FILES['upfile']['tmp_name']);
+      if (!in_array($type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG), true)) {
+        throw new RuntimeException('画像形式が未対応です');
+      }
+      // 保存する
+      $pathData = pathinfo($_FILES['upfile']['name']);
+      $now  = date("Y.m.d.His");
+      $name = $now.image_type_to_extension($type);
+      $path = sprintf('./uploads/%s', $name);
+      if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
+        throw new RuntimeException('ファイル保存時にエラーが発生しました');
+      }
+      chmod($path, 0644);
+    } catch (RuntimeException $e) {
+      $msg = array('red', $e->getMessage());
+    }
+  } 
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,13 +55,11 @@
       </div> <!-- header -->
 
       <div data-role="content">
-<?php
-  if (isset($name)){
-?>
+<?php if (isset($name)): ?>
         <div id="view-notify-menu">
-<?php foreach ($addresses as $key => $value){ ?>
+<?php   foreach ($addresses as $key => $value): ?>
           <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('<?= $key?>', '<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android"><?= $value->name ?>に通知</button>
-<?php } ?>
+<?php   endforeach; ?>
           <button data-role="button" data-inline="true" onclick="$(this).button('disable')" v-on:click="sendnotification('zenin', '<?= $now ?>','<?= $name ?>')" type="button" class="btn btn-default gc-bs-android">全員に通知</button>
           <a data-role="button" data-ajax="false" href="./index.php">書類の撮影に戻る</a>
         </div>
@@ -81,7 +73,6 @@
               sendnotification: function(to,now,filename){
                 $.ajax({
                   type: "POST",
-//                  url: "send2.php",
                   url: "<?= $sendscript ?>",
                   data: {
                     to: to,
@@ -95,9 +86,7 @@
           }
         )
         </script>
-<?php
-  } else {
-?>
+<?php else: ?>
         <form enctype="multipart/form-data" method="post" action="" data-ajax="false">
           <label for="imageFile">
             ＋カメラを起動
@@ -136,9 +125,8 @@
           }, true);
         </script>
 
-<?php
-  }
-?>
+<?php endif; ?>
+
       </div><!-- <div data-role="content"> -->
 
       <div data-role="footer" data-position="fixed" data-disable-page-zoom="false">
