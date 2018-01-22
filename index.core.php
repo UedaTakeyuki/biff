@@ -35,7 +35,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       // 保存する
       $pathData = pathinfo($_FILES['upfile']['name']);
       $now  = date("Y.m.d.His");
-      $name = $now.image_type_to_extension($type);
+      // $_POST["usename"] がなければ、現在時刻からファイル名を作る
+      if (!isset($_POST["usename"])){
+        $name = $now.image_type_to_extension($type);
+      } else {
+        $name = $_FILES['upfile']['name'];
+      }
       $path = sprintf('./uploads/%s', $name);
       if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
         throw new RuntimeException('ファイル保存時にエラーが発生しました');
