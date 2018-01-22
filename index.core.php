@@ -1,23 +1,35 @@
 <?php
-  
+require_once("vendor/autoload.php");   
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$log = new Logger('index.core');
+$log->pushHandler(new StreamHandler('biff.log', Logger::DEBUG));
+$log->debug('** Start **', ['file' => __FILE__, 'line' => __LINE__]);
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if (isset($_FILES['upfile']['error']) && is_int($_FILES['upfile']['error'])) {
     try {
       // $_FILES['upfile']['error'] の値を確認
       switch ($_FILES['upfile']['error']) {
         case UPLOAD_ERR_OK: // OK
+          $log->debug('UPLOAD_ERR_OK', ['file' => __FILE__, 'line' => __LINE__]);
           break;
         case UPLOAD_ERR_NO_FILE:
+          $log->debug('UPLOAD_ERR_NO_FILE', ['file' => __FILE__, 'line' => __LINE__]);
           throw new RuntimeException('No FILE.');
         case UPLOAD_ERR_INI_SIZE:  // php.ini定義の最大サイズ超過
+          $log->debug('UPLOAD_ERR_INI_SIZE', ['file' => __FILE__, 'line' => __LINE__]);
         case UPLOAD_ERR_FORM_SIZE: // フォーム定義の最大サイズ超過
+          $log->debug('UPLOAD_ERR_FORM_SIZE', ['file' => __FILE__, 'line' => __LINE__]);
           throw new RuntimeException('Too Big.');
         default:
+          $log->debug('Something wrong...', ['file' => __FILE__, 'line' => __LINE__]);
           throw new RuntimeException('Something wrong...');
       }
       // $_FILES['upfile']['mime']の値はブラウザ側で偽装可能なので、MIMEタイプを自前でチェックする
       $type = @exif_imagetype($_FILES['upfile']['tmp_name']);
       if (!in_array($type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG), true)) {
+        $log->debug('画像形式が未対応です', ['file' => __FILE__, 'line' => __LINE__]);
         throw new RuntimeException('画像形式が未対応です');
       }
       // 保存する
@@ -27,6 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $path = sprintf('./uploads/%s', $name);
       if (!move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
         throw new RuntimeException('ファイル保存時にエラーが発生しました');
+        $log->debug('ファイル保存時にエラーが発生しました', ['file' => __FILE__, 'line' => __LINE__]);
       }
       chmod($path, 0644);
     } catch (RuntimeException $e) {
@@ -34,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
   } 
 }
+$log->debug('** End **', ['file' => __FILE__, 'line' => __LINE__]);
 ?>
 <!DOCTYPE html>
 <html>
