@@ -1,8 +1,16 @@
 <?php
+require_once("vendor/autoload.php");   
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$log = new Logger('send.core');
+$log->pushHandler(new StreamHandler('biff.log', Logger::DEBUG));
+$log->debug('** Start **', ['file' => __FILE__, 'line' => __LINE__]);
+$log->debug('to = '.$_POST['to'], ['file' => __FILE__, 'line' => __LINE__]);
 
 if ($_POST['to'] == "zenin"){
 	foreach ($addresses as $key => $value){
 		send_notification($value->name, $value->address);
+		$log->debug('** message sent **', ['file' => __FILE__, 'line' => __LINE__]);
 	}
 } else {
 	if (array_key_exists($_POST['to'], $addresses)){
@@ -10,6 +18,7 @@ if ($_POST['to'] == "zenin"){
 		$address = $addresses[$_POST['to']]->address;
 	}
 	send_notification($name, $address);
+	$log->debug('** message sent **', ['file' => __FILE__, 'line' => __LINE__]);
 }
 
 function send_notification($name, $address){
