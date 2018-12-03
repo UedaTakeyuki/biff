@@ -11,15 +11,18 @@ The biff work as decrease the awkwardness of asking colleague to tell paper mail
 The biff is a web application. Go to the biff web app with your mobile, then the page that encourage taking a photo is coming as follows:
 
 <p>
-<img src="pic/2018-12-03-10.08.56.png" width=40%>
-<img src="pic/2018-12-03-10.09.06.png" width=40%>
-<img src="pic/2018-12-03-10.09.59.png" width=40%>
+  <img src="pic/2018-12-03-10.08.56.png" width=40%>
+  <img src="pic/2018-12-03-10.09.06.png" width=40%>
 </p>
-<img src="pic/2018-12-03-10.10.12.png" width=40%>
+
+So, take a photo of delivered mail and click "送信" button to send it to server:
+<p>
+  <img src="pic/2018-12-03-10.09.59.png" width=40%>
+  <img src="pic/2018-12-03-10.10.12.png" width=40%>
+</p>
+
+Then, the registered receiver list is comming.
 <img src="pic/2018-12-03-10.11.30.png" width=40%>
 
-
-take a photo of delivered paper mail & notify it by email to an out of office staff for his/her making decision of return back office soon to take care it by urgent or taking high priority of current task at outside and taking care the mail tommorow.
-This project must be so helpful for the capable sales person, tough engineer woarking at a field, and all of the outside working person to work more efficiently!
-
-## How to use
+So, click the button of receiver, then the notification mail is sent to the receiver.
+The contents of notification mail has link to the posted photo, so receiver can confirm what paper is delivered.
