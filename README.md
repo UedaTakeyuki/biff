@@ -16,12 +16,14 @@ The biff is a web application. Go to the biff web app with your mobile, then the
 </p>
 
 So, take a photo of delivered mail and click "送信" button to send it to server:
+
 <p>
   <img src="pic/2018-12-03-10.09.59.png" width=40%>
   <img src="pic/2018-12-03-10.10.12.png" width=40%>
 </p>
 
 Then, the registered receiver list is comming.
+
 <img src="pic/2018-12-03-10.11.30.png" width=40%>
 
 So, click the button of receiver, then the notification mail is sent to the receiver.
