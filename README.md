@@ -31,4 +31,4 @@ The contents of notification mail has link to the posted photo, so receiver can 
 
 ## configration
 
-<img src="pic/configration.of.biff&avis_courrier.pages.pdf">
+<img src="pic/configration.of.biff&avis_courrier.pages.png">
