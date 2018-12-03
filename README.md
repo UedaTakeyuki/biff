@@ -29,7 +29,7 @@ Then, the registered receiver list is comming.
 So, click the button of receiver, then the notification mail is sent to the receiver.
 The contents of notification mail has link to the posted photo, so receiver can confirm what paper is delivered.
 
-## configration
+## System Configration
 
 <img src="pic/configration.of.biff&avis_courrier.pages.png">
 
